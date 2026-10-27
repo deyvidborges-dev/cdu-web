@@ -85,4 +85,18 @@ class Agent
             throw new Exception("Error in UpdateAgent: " . $e->getMessage());
         }
     }
+
+    public function DeleteAgent()
+    {
+        if ($this->id_user == null) return null;
+        try {
+            $sql = "DELETE FROM users WHERE id_user = :id_user ";
+            $stmt = $this->connection->conect()->prepare($sql);
+            $stmt->bindParam(':id_user', $this->id_user, PDO::PARAM_INT);
+            $stmt->bindValue(':role', 1, PDO::PARAM_INT);
+            return $stmt->execute();
+        } catch (Exception $e) {
+            throw new Exception("Error in DeleteAgent: " . $e->getMessage());
+        }
+    }
 }
